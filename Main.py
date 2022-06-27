@@ -39,6 +39,20 @@ def save_address(address, street, housenumber):
     dicctionaryToDB["housenumber"].append(housenumber)
 
 
+def generate_csv():
+    """
+    Try to open "Addresses.csv" and appendes to it the information from the inserted address.
+    If it cannot open it, it will create it and append the information from the inserted address.
+    """
+    try:
+        df = pd.read_csv("Addresses.csv", index_col="Unnamed: 0", sep=';')
+        updatedDf = pd.concat([df, pd.DataFrame(dicctionaryToDB)], ignore_index=True, join="outer")
+        updatedDf.to_csv('Addresses.csv', sep=';')
+
+    except:
+        df = pd.DataFrame(dicctionaryToDB)
+        df.to_csv('Addresses.csv', sep=';')
+
 
 def address_house_separator(address):
     """
@@ -75,6 +89,7 @@ def address_house_separator(address):
                     break
     
     save_address(address, street, housenumber)
+    generate_csv()
     return print(json.dumps({"street":street, "housenumber":housenumber}))
 
 
