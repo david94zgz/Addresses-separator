@@ -78,12 +78,6 @@ def address_house_separator(address):
     return print(json.dumps({"street":street, "housenumber":housenumber}))
 
 
-# Allowes the user to enter an address that will be use to extract its street and house number
-# and to save it.
-input_address = input('>> Enter your address: ')
-address_house_separator(input_address)
-
-
 # Try to open "Addresses.csv" and appendes to it the information from the inserted address.
 # If it cannot open it, it will create it and append the information from the inserted address.
 try:
@@ -94,3 +88,8 @@ try:
 except:
     df = pd.DataFrame(dicctionaryToDB)
     df.to_csv('Addresses.csv', sep=';')
+    
+    
+    
+if __name__ == "__main__":
+    address_house_separator()
